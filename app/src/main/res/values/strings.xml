@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Sua Consulta</string>
+    <!-- Strings related to login -->
+    <string name="email">Email</string>
+    <string name="senha">Senha</string>
+    <string name="login">Login</string>
+    <string name="msg_login">Ainda não é cadastrado?</string>
+    <string name="cadastre">Cadastre-se</string>
+</resources>
