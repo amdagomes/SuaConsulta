@@ -1,9 +1,21 @@
 <resources>
-    <string name="app_name">Sua Consulta</string>
+    <string name="app_name" translatable="false">Sua Consulta</string>
     <!-- Strings related to login -->
-    <string name="email">Email</string>
+    <string name="email" translatable="false">Email</string>
     <string name="senha">Senha</string>
     <string name="login">Login</string>
     <string name="msg_login">Ainda não é cadastrado?</string>
     <string name="cadastre">Cadastre-se</string>
+
+    <!-- Strings related to cadastro -->
+    <string name="tituloCadastro">Crie sua conta</string>
+    <string name="dadosPessoais">Dados Pessoais</string>
+    <string name="dadosConta">Dados da Conta</string>
+    <string name="nome">Nome</string>
+    <string name="numSus">Nº do SUS</string>
+    <string name="cpf">CPF</string>
+    <string name="nascimento">Data de nascimento</string>
+    <string name="telefone">Telefone</string>
+    <string name="cadastrar">Cadastrar</string>
+
 </resources>
