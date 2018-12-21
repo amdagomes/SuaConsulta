@@ -45,6 +45,31 @@
         app:layout_constraintTop_toTopOf="@+id/imageView2"
         app:srcCompat="@drawable/cartao_bg" />
 
+    <TextView
+        android:id="@+id/tvNome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageCartao"
+        app:layout_constraintHorizontal_bias="0.052"
+        app:layout_constraintStart_toStartOf="@+id/imageCartao"
+        app:layout_constraintTop_toBottomOf="@+id/profile_image"
+        tools:text="Nome" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintEnd_toEndOf="@+id/imageCartao"
+        app:layout_constraintHorizontal_bias="0.087"
+        app:layout_constraintStart_toStartOf="@+id/imageCartao"
+        app:layout_constraintTop_toBottomOf="@+id/tvNome"
+        tools:text="xxxxxxxx" />
+
     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/profile_image"
         android:layout_width="63dp"
@@ -72,31 +97,6 @@
         app:layout_constraintHorizontal_bias="0.929"
         app:layout_constraintStart_toEndOf="@+id/profile_image"
         app:layout_constraintTop_toTopOf="@+id/imageCartao" />
-
-    <TextView
-        android:id="@+id/tvNome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:textColor="@color/colorWhite"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageCartao"
-        app:layout_constraintHorizontal_bias="0.052"
-        app:layout_constraintStart_toStartOf="@+id/imageCartao"
-        app:layout_constraintTop_toBottomOf="@+id/profile_image"
-        tools:text="Nome" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorWhite"
-        app:layout_constraintEnd_toEndOf="@+id/imageCartao"
-        app:layout_constraintHorizontal_bias="0.087"
-        app:layout_constraintStart_toStartOf="@+id/imageCartao"
-        app:layout_constraintTop_toBottomOf="@+id/tvNome"
-        tools:text="xxxxxxxx" />
 
     <GridLayout
         android:layout_width="0dp"
@@ -214,6 +214,7 @@
             android:layout_row="1"
             android:layout_column="1"
             android:clickable="true"
+            android:onClick="carregaSettingsConta"
             android:gravity="center_vertical"
             android:orientation="vertical"
             android:padding="5dp">

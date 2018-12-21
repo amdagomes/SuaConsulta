@@ -30,7 +30,8 @@
 
         <activity android:name=".CadastroActivity" />
         <activity android:name=".HomeActivity" />
-        <activity android:name=".MinhasConsultasActivity"></activity>
+        <activity android:name=".MinhasConsultasActivity" />
+        <activity android:name=".SettingsContaActivity"></activity>
     </application>
 
 </manifest>

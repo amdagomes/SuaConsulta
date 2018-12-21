@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class HomeActivity extends AppCompatActivity {
+public class SettingsContaActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,16 +17,11 @@ public class HomeActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_settings_conta);
     }
 
-    public void carregaTelaMinhasConsultas(View view) {
-        Intent intent = new Intent(HomeActivity.this, MinhasConsultasActivity.class);
-        startActivity(intent);
-    }
-
-    public void carregaSettingsConta(View view) {
-        Intent intent = new Intent(HomeActivity.this, SettingsContaActivity.class);
+    public void carregaTelaHome(View view) {
+        Intent intent = new Intent(SettingsContaActivity.this, HomeActivity.class);
         startActivity(intent);
     }
 }
