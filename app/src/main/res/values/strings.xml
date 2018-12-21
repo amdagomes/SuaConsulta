@@ -18,4 +18,14 @@
     <string name="telefone">Telefone</string>
     <string name="cadastrar">Cadastrar</string>
 
+    <!-- Strings related to home -->
+    <string name="sus">SUS</string>
+    <string name="consultas">Minhas Consultas</string>
+    <string name="descConsultas">Sua lista de consultas</string>
+    <string name="localSaude">Unidade de Saúde</string>
+    <string name="descLocalSaude">Encontre uma próximo a você</string>
+    <string name="medicamentos">Medicamentos</string>
+    <string name="descMedicamentos">Lembre-se de tomar seus medicamentos</string>
+    <string name="conta">Conta</string>
+    <string name="descConta">Verifique suas informações</string>
 </resources>

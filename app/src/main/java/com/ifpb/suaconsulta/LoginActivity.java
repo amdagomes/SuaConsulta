@@ -50,6 +50,13 @@ public class LoginActivity extends AppCompatActivity{
         setContentView(R.layout.activity_login);
 
         Button btnLogin = (Button) findViewById(R.id.button_login);
+        btnLogin.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void carregaTelaCadastro(View view) {
