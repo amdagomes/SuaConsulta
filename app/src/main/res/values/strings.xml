@@ -28,4 +28,9 @@
     <string name="descMedicamentos">Lembre-se de tomar seus medicamentos</string>
     <string name="conta">Conta</string>
     <string name="descConta">Verifique suas informações</string>
+
+    <!-- Strings related to home -->
+    <string name="minhasConsultas">Minhas Consultas</string>
+    <string name="agendadas">Agendadas</string>
+    <string name="listaEspera">Lista de espera</string>
 </resources>
