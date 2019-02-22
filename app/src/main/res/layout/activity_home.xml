@@ -27,11 +27,11 @@
         style="@style/Animation.AppCompat.Dialog"
         android:layout_width="0dp"
         android:layout_height="132dp"
+        android:background="@drawable/layout_shadow_grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
 
-        android:background="@drawable/layout_shadow_grey"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageCartao"

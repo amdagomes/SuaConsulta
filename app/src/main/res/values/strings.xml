@@ -17,6 +17,7 @@
     <string name="nascimento">Data de nascimento</string>
     <string name="telefone">Telefone</string>
     <string name="cadastrar">Cadastrar</string>
+    <string name="sexo">Sexo</string>
 
     <!-- Strings related to home -->
     <string name="sus">SUS</string>
@@ -33,4 +34,8 @@
     <string name="minhasConsultas">Minhas Consultas</string>
     <string name="agendadas">Agendadas</string>
     <string name="listaEspera">Lista de espera</string>
+
+    <string name="endereco">Endereco</string>
+    <string name="rua">Rua</string>
+    <string name="bairro">Bairro</string>
 </resources>
