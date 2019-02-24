@@ -9,6 +9,10 @@
         <item name="android:colorBackground">@color/background_material_light</item>
     </style>
 
+    <style name="ToolbarTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+    </style>
+
     <!-- Style/Theme dos inputs da tela de login -->
     <style name="StyledTilEditTextTheme">
         <item name="colorControlNormal">#e6ffffff</item> // Cor padrão da linha

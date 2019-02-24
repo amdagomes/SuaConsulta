@@ -28,4 +28,14 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent = new Intent(HomeActivity.this, SettingsContaActivity.class);
         startActivity(intent);
     }
+
+    public void carregaProcurarLocal(View view) {
+        Intent intent = new Intent(HomeActivity.this, LocalSaudeActivity.class);
+        startActivity(intent);
+    }
+
+    public void carregaLembretes(View view) {
+        Intent intent = new Intent(HomeActivity.this, MedicamentosActivity.class);
+        startActivity(intent);
+    }
 }

@@ -38,4 +38,12 @@
     <string name="endereco">Endereco</string>
     <string name="rua">Rua</string>
     <string name="bairro">Bairro</string>
+    <string name="editar">Editar</string>
+    <string name="sair">Sair</string>
+    <string name="alterarSenha">Alterar senha</string>
+    <string name="title_home">Home</string>
+
+    <string name="buscar_local">Onde busca atendimento?</string>
+
+    <string name="lembrete">Lembrete de medicamnetos</string>
 </resources>
