@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "759199730491",
+    "firebase_url": "https://sua-consulta.firebaseio.com",
+    "project_id": "sua-consulta",
+    "storage_bucket": "sua-consulta.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:759199730491:android:f03d09d5f955596f",
+        "android_client_info": {
+          "package_name": "com.ifpb.suaconsulta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "759199730491-jcq4ssgoe09p6ndb28lub1bbkoc8p6m0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ifpb.suaconsulta",
+            "certificate_hash": "f25c2f92eb878fbc28e3a8cfd3f52e5709a17802"
+          }
+        },
+        {
+          "client_id": "759199730491-a73qfgnpg89d0a61ijvhisau42t4hrrb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4bTLgz947TE_VQh9M_VOXavHvt_mv2Pg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "759199730491-a73qfgnpg89d0a61ijvhisau42t4hrrb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
