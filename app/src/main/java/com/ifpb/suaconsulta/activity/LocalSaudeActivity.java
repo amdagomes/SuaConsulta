@@ -1,4 +1,4 @@
-package com.ifpb.suaconsulta;
+package com.ifpb.suaconsulta.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+
+import com.ifpb.suaconsulta.R;
 
 public class LocalSaudeActivity extends AppCompatActivity {
 
@@ -20,7 +22,7 @@ public class LocalSaudeActivity extends AppCompatActivity {
     }
 
     public void carregaTelaHome(View view){
-        Intent intent = new Intent(LocalSaudeActivity.this, HomeActivity.class );
+        Intent intent = new Intent(LocalSaudeActivity.this, MainActivity.class );
         startActivity(intent);
     }
 }

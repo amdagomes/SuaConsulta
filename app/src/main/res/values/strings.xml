@@ -11,13 +11,13 @@
     <string name="tituloCadastro">Crie sua conta</string>
     <string name="dadosPessoais">Dados Pessoais</string>
     <string name="dadosConta">Dados da Conta</string>
-    <string name="nome">Nome</string>
-    <string name="numSus">Nº do SUS</string>
-    <string name="cpf">CPF</string>
+    <string name="nome">Nome*</string>
+    <string name="numSus">Nº do SUS*</string>
+    <string name="cpf">CPF*</string>
     <string name="nascimento">Data de nascimento</string>
     <string name="telefone">Telefone</string>
     <string name="cadastrar">Cadastrar</string>
-    <string name="sexo">Sexo</string>
+    <string name="sexo">Sexo*</string>
 
     <!-- Strings related to home -->
     <string name="sus">SUS</string>

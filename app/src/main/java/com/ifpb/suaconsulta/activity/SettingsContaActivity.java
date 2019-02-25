@@ -1,4 +1,4 @@
-package com.ifpb.suaconsulta;
+package com.ifpb.suaconsulta.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,32 +9,40 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class MedicamentosActivity extends AppCompatActivity {
+import com.ifpb.suaconsulta.R;
+
+public class SettingsContaActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+       requestWindowFeature(Window.FEATURE_NO_TITLE);
+       getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setContentView(R.layout.activity_medicamentos);
+        setContentView(R.layout.activity_settings_conta);
 
-        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbarLembretes);
+        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbarSettings);
         setSupportActionBar(toolbar);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_adiconar_lembrete, menu);
+        getMenuInflater().inflate(R.menu.menu_configuracoes, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
-    //trata do clique no menu
+    //trata clique do menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.itemAdcLembrete:
+            case R.id.itemEditar:
+                //ação
+                break;
+            case R.id.itemAlterarSenha:
+                //ação
+                break;
+            case R.id.itemSair:
                 //ação
                 break;
         }
@@ -42,7 +50,7 @@ public class MedicamentosActivity extends AppCompatActivity {
     }
 
     public void carregaTelaHome(View view) {
-        Intent intent = new Intent(MedicamentosActivity.this, HomeActivity.class);
+        Intent intent = new Intent(SettingsContaActivity.this, MainActivity.class);
         startActivity(intent);
     }
 }
