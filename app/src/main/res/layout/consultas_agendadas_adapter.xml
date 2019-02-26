@@ -63,7 +63,6 @@
         android:gravity="center"
         android:text="AGENDADO PARA 01/01/2010"
         android:textAlignment="center"
-        android:textColor="?android:attr/tooltipBackgroundColor"
         android:textStyle="bold" />
 
     <TextView

@@ -212,7 +212,7 @@
         android:onClick="carregaLembretes"
         android:orientation="vertical"
         android:padding="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/floatingActionButton2"
+        app:layout_constraintBottom_toTopOf="@+id/btnHomeAgendarConsulta"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline2">
@@ -251,7 +251,7 @@
         android:onClick="carregaSettingsConta"
         android:orientation="vertical"
         android:padding="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/floatingActionButton2"
+        app:layout_constraintBottom_toTopOf="@+id/btnHomeAgendarConsulta"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -281,7 +281,7 @@
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton2"
+        android:id="@+id/btnHomeAgendarConsulta"
         android:layout_width="85dp"
         android:layout_height="78dp"
         android:layout_marginStart="8dp"
@@ -290,6 +290,7 @@
         android:layout_marginBottom="16dp"
         android:clickable="true"
         android:focusable="true"
+        android:onClick="carregaTelaAgendarConsulta"
         app:backgroundTint="@color/colorGreenDarck"
         app:fabCustomSize="78dp"
         app:layout_constraintBottom_toBottomOf="parent"

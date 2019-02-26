@@ -40,4 +40,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, MedicamentosActivity.class);
         startActivity(intent);
     }
+
+    public void carregaTelaAgendarConsulta(View view){
+        Intent intent = new Intent(MainActivity.this, AgendaConsulta.class);
+        startActivity(intent);
+    }
 }

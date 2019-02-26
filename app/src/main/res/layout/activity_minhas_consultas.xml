@@ -18,8 +18,32 @@
             android:textAlignment="center"
             app:buttonGravity="top"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:title="Minhas Consultas"
-            app:titleTextColor="@color/colorWhite"></android.support.v7.widget.Toolbar>
+            app:titleTextColor="@color/colorWhite">
+
+            <ImageView
+                android:id="@+id/btBack2"
+                android:layout_width="27dp"
+                android:layout_height="29dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="8dp"
+                android:clickable="true"
+                android:onClick="carregaTelaHome"
+                android:src="@drawable/icons8_left_48"
+                app:layout_constraintBottom_toBottomOf="@+id/toolbarSettings"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tituloMinhasConsultas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Minhas Consultas"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </android.support.v7.widget.Toolbar>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"

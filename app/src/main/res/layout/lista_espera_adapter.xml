@@ -20,7 +20,7 @@
 
         <ImageView
             android:id="@+id/imageView5"
-            app:srcCompat="@color/colorGreenDarck"
+
             android:layout_width="4dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -62,7 +62,6 @@
         android:gravity="center"
         android:text="AGENDADO PARA 01/01/2010"
         android:textAlignment="center"
-        android:textColor="?android:attr/tooltipBackgroundColor"
         android:textStyle="bold" />
 
     <LinearLayout

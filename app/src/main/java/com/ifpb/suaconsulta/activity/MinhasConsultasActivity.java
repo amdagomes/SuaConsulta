@@ -1,5 +1,6 @@
 package com.ifpb.suaconsulta.activity;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +23,11 @@ public class MinhasConsultasActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_minhas_consultas);
+    }
+
+    public void carregaTelaHome(View view){
+        Intent intent = new Intent(MinhasConsultasActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 
 }
