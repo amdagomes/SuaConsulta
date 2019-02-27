@@ -38,11 +38,11 @@
 
         <activity android:name=".activity.CadastroActivity" />
         <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.MinhasConsultasActivity" />
-        <activity android:name=".activity.SettingsContaActivity" />
-        <activity android:name=".activity.LocalSaudeActivity" />
-        <activity android:name=".activity.MedicamentosActivity" />
-        <activity android:name=".activity.AgendaConsulta"></activity>
+        <activity android:name=".activity.MinhasConsultasActivity" android:parentActivityName=".activity.MainActivity"/>
+        <activity android:name=".activity.SettingsContaActivity" android:parentActivityName=".activity.MainActivity"/>
+        <activity android:name=".activity.LocalSaudeActivity" android:parentActivityName=".activity.MainActivity"/>
+        <activity android:name=".activity.MedicamentosActivity" android:parentActivityName=".activity.MainActivity"/>
+        <activity android:name=".activity.AgendaConsulta" android:parentActivityName=".activity.MainActivity"/>
     </application>
 
 </manifest>

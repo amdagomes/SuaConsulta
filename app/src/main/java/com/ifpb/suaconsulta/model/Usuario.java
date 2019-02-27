@@ -1,9 +1,13 @@
 package com.ifpb.suaconsulta.model;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Exclude;
+import com.ifpb.suaconsulta.helper.ConfiguracaoFirebase;
+
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Usuario implements Serializable {
+public class Usuario implements Serializable{
 
     private String id;
     private String cpf;
@@ -15,6 +19,12 @@ public class Usuario implements Serializable {
     private String dataNascimento;
     private String rua;
     private String bairro;
+
+    public void salvar(){
+        DatabaseReference fDatabaseReference = ConfiguracaoFirebase.getDatabaseReference();
+        DatabaseReference usuariosRef = fDatabaseReference.child("usuarios").child(getId());
+        usuariosRef.setValue(this);
+    }
 
     public String getId() {
         return id;
@@ -56,6 +66,7 @@ public class Usuario implements Serializable {
         this.email = email;
     }
 
+    @Exclude
     public String getSenha() {
         return senha;
     }

@@ -43,7 +43,6 @@ public class LoginActivity extends AppCompatActivity{
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
-        verificarUsuarioLogado();
         inicializarComponentes();
 
         buttonLogin.setOnClickListener(new OnClickListener() {
@@ -53,8 +52,6 @@ public class LoginActivity extends AppCompatActivity{
 
                 String email = textEmail.getText().toString();
                 String senha = textSenha.getText().toString();
-                Log.i("INFO_LOGIN: email: ", email);
-                Log.i("INFO_LOGIN: senha: ", senha);
 
                 if(email.isEmpty() || senha.isEmpty()){
                     progressLogin.setVisibility(View.GONE);
@@ -107,6 +104,12 @@ public class LoginActivity extends AppCompatActivity{
     public void carregaTelaCadastro(View view) {
         Intent intent = new Intent(LoginActivity.this, CadastroActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        verificarUsuarioLogado();
     }
 }
 

@@ -3,6 +3,7 @@ package com.ifpb.suaconsulta.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -19,6 +20,11 @@ public class LocalSaudeActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_local_saude);
+
+        Toolbar toolbar = findViewById(R.id.toolbarLocalSaude);
+        toolbar.setTitle("Onde busca atendimento?");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void carregaTelaHome(View view){

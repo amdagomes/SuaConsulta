@@ -21,32 +21,7 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:titleTextColor="@android:color/white">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/conta"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="19dp" />
-
     </android.support.v7.widget.Toolbar>
-
-    <ImageView
-        android:id="@+id/btBack"
-        android:layout_width="27dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginBottom="8dp"
-        android:clickable="true"
-        android:onClick="carregaTelaHome"
-        android:src="@drawable/icons8_left_48"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbarSettings"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView14"
