@@ -21,8 +21,4 @@ public class AgendaConsulta extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    public void carregaTelaHome(View view){
-        Intent intent = new Intent(AgendaConsulta.this, MainActivity.class);
-        startActivity(intent);
-    }
 }

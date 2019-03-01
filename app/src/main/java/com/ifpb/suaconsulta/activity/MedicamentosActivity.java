@@ -46,8 +46,4 @@ public class MedicamentosActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void carregaTelaHome(View view) {
-        Intent intent = new Intent(MedicamentosActivity.this, MainActivity.class);
-        startActivity(intent);
-    }
 }

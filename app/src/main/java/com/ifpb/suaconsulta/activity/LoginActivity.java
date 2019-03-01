@@ -1,12 +1,9 @@
 package com.ifpb.suaconsulta.activity;
 
 import android.content.Intent;
-import android.os.Build;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -21,8 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.ifpb.suaconsulta.R;
-import com.ifpb.suaconsulta.helper.ConfiguracaoFirebase;
-import com.ifpb.suaconsulta.helper.VerificaCPF;
+import com.ifpb.suaconsulta.database.ConfiguracaoFirebase;
 import com.ifpb.suaconsulta.model.Usuario;
 
 public class LoginActivity extends AppCompatActivity{

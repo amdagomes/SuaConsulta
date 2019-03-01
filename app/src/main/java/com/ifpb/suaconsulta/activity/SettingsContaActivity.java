@@ -12,7 +12,7 @@ import android.view.WindowManager;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.ifpb.suaconsulta.R;
-import com.ifpb.suaconsulta.helper.ConfiguracaoFirebase;
+import com.ifpb.suaconsulta.database.ConfiguracaoFirebase;
 
 public class SettingsContaActivity extends AppCompatActivity {
 
@@ -68,8 +68,4 @@ public class SettingsContaActivity extends AppCompatActivity {
         }
     }
 
-    public void carregaTelaHome(View view) {
-        Intent intent = new Intent(SettingsContaActivity.this, MainActivity.class);
-        startActivity(intent);
-    }
 }

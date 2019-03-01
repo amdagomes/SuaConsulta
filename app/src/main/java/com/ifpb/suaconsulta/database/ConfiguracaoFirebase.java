@@ -1,4 +1,4 @@
-package com.ifpb.suaconsulta.helper;
+package com.ifpb.suaconsulta.database;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;

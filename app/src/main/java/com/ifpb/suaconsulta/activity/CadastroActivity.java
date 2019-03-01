@@ -5,6 +5,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -21,14 +22,10 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.ifpb.suaconsulta.R;
-import com.ifpb.suaconsulta.helper.ConfiguracaoFirebase;
+import com.ifpb.suaconsulta.database.ConfiguracaoFirebase;
+import com.ifpb.suaconsulta.database.UsuarioDao;
 import com.ifpb.suaconsulta.helper.VerificaCPF;
 import com.ifpb.suaconsulta.model.Usuario;
-
-import java.text.DateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class CadastroActivity extends AppCompatActivity {
 
@@ -104,7 +101,9 @@ public class CadastroActivity extends AppCompatActivity {
                         //Salvar dados no firebase
                         String idUsuario = task.getResult().getUser().getUid();
                         usuario.setId(idUsuario);
-                        usuario.salvar();
+
+                        UsuarioDao usuarioDao = new UsuarioDao();
+                        usuarioDao.salvar(usuario);
 
                         Toast.makeText(CadastroActivity.this, "Cadastro realizado com sucesso", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(CadastroActivity.this, LoginActivity.class));

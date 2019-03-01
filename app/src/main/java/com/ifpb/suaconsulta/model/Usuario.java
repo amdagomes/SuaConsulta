@@ -1,8 +1,8 @@
 package com.ifpb.suaconsulta.model;
 
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.Exclude;
-import com.ifpb.suaconsulta.helper.ConfiguracaoFirebase;
+import com.ifpb.suaconsulta.database.ConfiguracaoFirebase;
+import com.ifpb.suaconsulta.model.enums.Sexo;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -10,20 +10,18 @@ import java.util.Objects;
 public class Usuario implements Serializable{
 
     private String id;
+    private String Nome;
     private String cpf;
     private String numSus;
     private String telefone;
     private String email;
     private String senha;
-    private String sexo;
+    private Sexo sexo;
     private String dataNascimento;
     private String rua;
     private String bairro;
 
-    public void salvar(){
-        DatabaseReference fDatabaseReference = ConfiguracaoFirebase.getDatabaseReference();
-        DatabaseReference usuariosRef = fDatabaseReference.child("usuarios").child(getId());
-        usuariosRef.setValue(this);
+    public Usuario() {
     }
 
     public String getId() {
@@ -32,6 +30,14 @@ public class Usuario implements Serializable{
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getNome() {
+        return Nome;
+    }
+
+    public void setNome(String nome) {
+        Nome = nome;
     }
 
     public String getCpf() {
@@ -66,7 +72,6 @@ public class Usuario implements Serializable{
         this.email = email;
     }
 
-    @Exclude
     public String getSenha() {
         return senha;
     }
@@ -75,11 +80,11 @@ public class Usuario implements Serializable{
         this.senha = senha;
     }
 
-    public String getSexo() {
+    public Sexo getSexo() {
         return sexo;
     }
 
-    public void setSexo(String sexo) {
+    public void setSexo(Sexo sexo) {
         this.sexo = sexo;
     }
 
@@ -113,12 +118,13 @@ public class Usuario implements Serializable{
         if (o == null || getClass() != o.getClass()) return false;
         Usuario usuario = (Usuario) o;
         return Objects.equals(id, usuario.id) &&
+                Objects.equals(Nome, usuario.Nome) &&
                 Objects.equals(cpf, usuario.cpf) &&
                 Objects.equals(numSus, usuario.numSus) &&
                 Objects.equals(telefone, usuario.telefone) &&
                 Objects.equals(email, usuario.email) &&
                 Objects.equals(senha, usuario.senha) &&
-                Objects.equals(sexo, usuario.sexo) &&
+                sexo == usuario.sexo &&
                 Objects.equals(dataNascimento, usuario.dataNascimento) &&
                 Objects.equals(rua, usuario.rua) &&
                 Objects.equals(bairro, usuario.bairro);
@@ -127,19 +133,20 @@ public class Usuario implements Serializable{
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, cpf, numSus, telefone, email, senha, sexo, dataNascimento, rua, bairro);
+        return Objects.hash(id, Nome, cpf, numSus, telefone, email, senha, sexo, dataNascimento, rua, bairro);
     }
 
     @Override
     public String toString() {
         return "Usuario{" +
                 "id='" + id + '\'' +
+                ", Nome='" + Nome + '\'' +
                 ", cpf='" + cpf + '\'' +
                 ", numSus='" + numSus + '\'' +
                 ", telefone='" + telefone + '\'' +
                 ", email='" + email + '\'' +
                 ", senha='" + senha + '\'' +
-                ", sexo='" + sexo + '\'' +
+                ", sexo=" + sexo +
                 ", dataNascimento='" + dataNascimento + '\'' +
                 ", rua='" + rua + '\'' +
                 ", bairro='" + bairro + '\'' +

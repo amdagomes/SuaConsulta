@@ -1,18 +1,18 @@
 package com.ifpb.suaconsulta.activity;
 
-import android.content.Intent;
-import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.TextView;
 
 import com.ifpb.suaconsulta.R;
+import com.ifpb.suaconsulta.fragment.ListaEsperaFragment;
+import com.ifpb.suaconsulta.fragment.MinhasConsultasFragment;
+import com.ogaclejapan.smarttablayout.SmartTabLayout;
+import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
+import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
 public class MinhasConsultasActivity extends AppCompatActivity {
 
@@ -29,11 +29,18 @@ public class MinhasConsultasActivity extends AppCompatActivity {
         toolbar.setTitle("Minhas Consultas");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
 
-    public void carregaTelaHome(View view){
-        Intent intent = new Intent(MinhasConsultasActivity.this, MainActivity.class);
-        startActivity(intent);
+        FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
+                getSupportFragmentManager(), FragmentPagerItems.with(this)
+                .add("Agendadas", MinhasConsultasFragment.class)
+                .add("Lista de espera", ListaEsperaFragment.class)
+                .create());
+
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager.setAdapter(adapter);
+
+        SmartTabLayout viewPagerTab = (SmartTabLayout) findViewById(R.id.viewpagertab);
+        viewPagerTab.setViewPager(viewPager);
     }
 
 }
