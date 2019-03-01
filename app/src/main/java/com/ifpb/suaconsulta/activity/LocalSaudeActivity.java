@@ -31,7 +31,7 @@ public class LocalSaudeActivity extends AppCompatActivity implements OnMapReadyC
         toolbar.setTitle("Onde busca atendimento?");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        
+
         // Obtain the SupportMapFragment and get notified when the content_map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
