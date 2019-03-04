@@ -58,7 +58,7 @@
         app:layout_constraintTop_toTopOf="@+id/imageCartao" />
 
     <TextView
-        android:id="@+id/tvNome"
+        android:id="@+id/textHomeNome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -72,7 +72,7 @@
         app:layout_constraintTop_toBottomOf="@+id/profile_image" />
 
     <TextView
-        android:id="@+id/tvNumSus"
+        android:id="@+id/textHomeNumSus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="xxxxxxxx"
@@ -80,7 +80,7 @@
         app:layout_constraintEnd_toEndOf="@+id/imageCartao"
         app:layout_constraintHorizontal_bias="0.087"
         app:layout_constraintStart_toStartOf="@+id/imageCartao"
-        app:layout_constraintTop_toBottomOf="@+id/tvNome" />
+        app:layout_constraintTop_toBottomOf="@+id/textHomeNome" />
 
     <View
         android:id="@+id/divider"

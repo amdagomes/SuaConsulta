@@ -76,6 +76,7 @@ public class CadastroActivity extends AppCompatActivity {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         usuario.setDataNascimento(dataNascimento);
                     }
+                    usuario.setNome(nome);
                     usuario.setEmail(email);
                     usuario.setSenha(senha);
                     usuario.setNumSus(numSus);
@@ -97,7 +98,6 @@ public class CadastroActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     try{
                         progressCadastro.setVisibility(View.GONE);
-
                         //Salvar dados no firebase
                         String idUsuario = task.getResult().getUser().getUid();
                         usuario.setId(idUsuario);
@@ -113,6 +113,7 @@ public class CadastroActivity extends AppCompatActivity {
                     }
                 } else {
                     progressCadastro.setVisibility(View.GONE);
+                    buttonCadastrar.setEnabled(true);
                     String erroExcecao;
                     try {
                         throw task.getException();

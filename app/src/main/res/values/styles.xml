@@ -15,13 +15,20 @@
 
     <!-- Style/Theme dos inputs da tela de login -->
     <style name="StyledTilEditTextTheme">
-        <item name="colorControlNormal">#e6ffffff</item> // Cor padrão da linha
-        <item name="colorControlActivated">#faffffff</item> // Cor linha e texto quando recebe foco
+        <item name="colorControlNormal">#e6ffffff</item>
+        // Cor padrão da linha
+        <item name="colorControlActivated">#faffffff</item>
+        // Cor linha e texto quando recebe foco
     </style>
 
     <style name="StyledTilEditText">
         <item name="android:theme">@style/StyledTilEditTextTheme</item>
         <item name="android:paddingTop">4dp</item>
-        <item name="android:textColorHint">#c8ffffff</item> // Cor texto(hint) sem foco
+        <item name="android:textColorHint">#c8ffffff</item>
+        // Cor texto(hint) sem foco
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

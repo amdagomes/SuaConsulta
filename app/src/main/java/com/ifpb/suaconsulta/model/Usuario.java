@@ -1,9 +1,5 @@
 package com.ifpb.suaconsulta.model;
 
-import com.google.firebase.database.DatabaseReference;
-import com.ifpb.suaconsulta.database.ConfiguracaoFirebase;
-import com.ifpb.suaconsulta.model.enums.Sexo;
-
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -16,7 +12,7 @@ public class Usuario implements Serializable{
     private String telefone;
     private String email;
     private String senha;
-    private Sexo sexo;
+    private String sexo;
     private String dataNascimento;
     private String rua;
     private String bairro;
@@ -80,14 +76,6 @@ public class Usuario implements Serializable{
         this.senha = senha;
     }
 
-    public Sexo getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(Sexo sexo) {
-        this.sexo = sexo;
-    }
-
     public String getDataNascimento() {
         return dataNascimento;
     }
@@ -112,6 +100,14 @@ public class Usuario implements Serializable{
         this.bairro = bairro;
     }
 
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -124,7 +120,7 @@ public class Usuario implements Serializable{
                 Objects.equals(telefone, usuario.telefone) &&
                 Objects.equals(email, usuario.email) &&
                 Objects.equals(senha, usuario.senha) &&
-                sexo == usuario.sexo &&
+                Objects.equals(sexo, usuario.sexo) &&
                 Objects.equals(dataNascimento, usuario.dataNascimento) &&
                 Objects.equals(rua, usuario.rua) &&
                 Objects.equals(bairro, usuario.bairro);
@@ -146,7 +142,7 @@ public class Usuario implements Serializable{
                 ", telefone='" + telefone + '\'' +
                 ", email='" + email + '\'' +
                 ", senha='" + senha + '\'' +
-                ", sexo=" + sexo +
+                ", sexo='" + sexo + '\'' +
                 ", dataNascimento='" + dataNascimento + '\'' +
                 ", rua='" + rua + '\'' +
                 ", bairro='" + bairro + '\'' +
