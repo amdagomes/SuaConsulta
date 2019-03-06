@@ -5,13 +5,15 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,7 +25,8 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.ifpb.suaconsulta.R;
 import com.ifpb.suaconsulta.database.ConfiguracaoFirebase;
-import com.ifpb.suaconsulta.database.UsuarioDao;
+import com.ifpb.suaconsulta.database.UsuarioFirebase;
+import com.ifpb.suaconsulta.helper.PreferenciasDoUsuario;
 import com.ifpb.suaconsulta.helper.VerificaCPF;
 import com.ifpb.suaconsulta.model.Usuario;
 
@@ -38,10 +41,14 @@ public class CadastroActivity extends AppCompatActivity {
     private EditText textSenha;
     private ProgressBar progressCadastro;
     private Button buttonCadastrar;
+    private Spinner spinnerSexo;
 
     private Usuario usuario;
 
     private FirebaseAuth auth;
+
+    private ArrayAdapter<String> adapter;
+    private String[] opcoesSexo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +58,13 @@ public class CadastroActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cadastro);
 
         inicializaComponentes();
+
+        opcoesSexo = new String[]{"Feminino", "Masculino"};
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, opcoesSexo);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerSexo.setAdapter(adapter);
+
+        usuario = new Usuario();
 
         buttonCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +85,6 @@ public class CadastroActivity extends AppCompatActivity {
                     progressCadastro.setVisibility(View.GONE);
                     Toast.makeText(CadastroActivity.this, "CPF inválido", Toast.LENGTH_SHORT).show();
                 } else{
-                    usuario = new Usuario();
                     usuario.setCpf(cpf);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         usuario.setDataNascimento(dataNascimento);
@@ -85,6 +98,26 @@ public class CadastroActivity extends AppCompatActivity {
                 }
             }
         });
+
+        spinnerSexo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 0:
+                        usuario.setSexo("Feminino");
+                        break;
+                    case 1:
+                        usuario.setSexo("Masculino");
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
     }
 
     private void cadastrarUsuario(final Usuario usuario) {
@@ -102,8 +135,9 @@ public class CadastroActivity extends AppCompatActivity {
                         String idUsuario = task.getResult().getUser().getUid();
                         usuario.setId(idUsuario);
 
-                        UsuarioDao usuarioDao = new UsuarioDao();
-                        usuarioDao.salvar(usuario);
+                        UsuarioFirebase usuarioFirebase = new UsuarioFirebase();
+                        usuarioFirebase.salvar(usuario);
+                        PreferenciasDoUsuario.recuperarUsuarioLogado(getApplicationContext());
 
                         Toast.makeText(CadastroActivity.this, "Cadastro realizado com sucesso", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(CadastroActivity.this, LoginActivity.class));
@@ -142,6 +176,7 @@ public class CadastroActivity extends AppCompatActivity {
         textSenha = findViewById(R.id.inputCadastroSenha);
         progressCadastro = findViewById(R.id.progressCadastro);
         buttonCadastrar = findViewById(R.id.button_cadastrar);
+        spinnerSexo = findViewById(R.id.spinnerCadastrarSexo);
     }
 
     public void carregarTelaLogin(View view) {

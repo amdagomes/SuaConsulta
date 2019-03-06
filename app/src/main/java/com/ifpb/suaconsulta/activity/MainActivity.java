@@ -2,37 +2,32 @@ package com.ifpb.suaconsulta.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.ifpb.suaconsulta.R;
 import com.ifpb.suaconsulta.database.ConfiguracaoFirebase;
-import com.ifpb.suaconsulta.database.UsuarioDao;
+import com.ifpb.suaconsulta.database.UsuarioFirebase;
 import com.ifpb.suaconsulta.model.Usuario;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
 
     private final String ARQUIVO_PREFERENCIAS = "arquivoPreferencias";
     private FirebaseAuth auth;
-    private UsuarioDao usuarioDao;
     private Usuario usuarioLogado;
-    DatabaseReference usuarioRef;
+    private DatabaseReference usuarioRef;
     private TextView textNome, textNumSus;
+    private CircleImageView imagePerfil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +37,11 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
-        usuarioRef = UsuarioDao.getUsuariosRef();
+        usuarioRef = UsuarioFirebase.getUsuariosRef();
 
         textNome = findViewById(R.id.textHomeNome);
         textNumSus = findViewById(R.id.textHomeNumSus);
-        usuarioDao = new UsuarioDao();
+        imagePerfil = findViewById(R.id.imageMainProfile);
 
         usuarioLogado = new Usuario();
         auth = ConfiguracaoFirebase.getFirebaseAuth();
@@ -82,6 +77,23 @@ public class MainActivity extends AppCompatActivity {
         //seta valores dos text's view's
         textNome.setText(usuarioLogado.getNome());
         textNumSus.setText(usuarioLogado.getNumSus());
+
+        String url = usuarioLogado.getCaminhoFoto();
+        if (!url.equals("")){
+            Uri urlFoto = Uri.parse(url);
+            Glide.with(MainActivity.this)
+                    .load(urlFoto)
+                    .into(imagePerfil);
+        }
+    }
+
+    private void recuperaPreferences() {
+        SharedPreferences preferences = getSharedPreferences(ARQUIVO_PREFERENCIAS, MODE_PRIVATE);
+        usuarioLogado.setNome(preferences.getString("nome", "não definido"));
+        usuarioLogado.setNumSus(preferences.getString("numSus", "não definido"));
+        usuarioLogado.setCaminhoFoto(preferences.getString("fotoPerfil", ""));
+
+        setValores();
     }
 
     @Override
@@ -90,10 +102,4 @@ public class MainActivity extends AppCompatActivity {
         recuperaPreferences();
     }
 
-    private void recuperaPreferences() {
-        SharedPreferences preferences = getSharedPreferences(ARQUIVO_PREFERENCIAS, MODE_PRIVATE);
-        usuarioLogado.setNome(preferences.getString("nome", "não definido"));
-        usuarioLogado.setNumSus(preferences.getString("numSus", "não definido"));
-        setValores();
-    }
 }

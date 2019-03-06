@@ -99,7 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.22"
@@ -158,13 +158,26 @@
                 android:textSize="14sp" />
         </android.support.design.widget.TextInputLayout>
 
+        <Spinner
+            android:id="@+id/spinnerCadastrarSexo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="2dp"
+            app:layout_constraintBottom_toTopOf="@+id/conteinerInputNascimento"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/conteinerInputCPF" />
+
         <android.support.design.widget.TextInputLayout
             android:id="@+id/conteinerInputNascimento"
             android:layout_width="156dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/conteinerInputCPF">
+            app:layout_constraintTop_toBottomOf="@+id/spinnerCadastrarSexo">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/inputCadastroNascimento"
@@ -185,7 +198,7 @@
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/conteinerInputNascimento"
-            app:layout_constraintTop_toBottomOf="@+id/conteinerInputCPF">
+            app:layout_constraintTop_toBottomOf="@+id/spinnerCadastrarSexo">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/inputCadastroTelefone"
@@ -203,7 +216,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="8dp"
             android:text="@string/dadosConta"
             android:textSize="18sp"
@@ -218,7 +231,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -262,7 +275,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:background="@color/design_default_color_primary"

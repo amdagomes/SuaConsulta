@@ -13,7 +13,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.ifpb.suaconsulta.model.Usuario;
 
-public class UsuarioDao {
+public class UsuarioFirebase {
 
     private static DatabaseReference usuarioRef = ConfiguracaoFirebase.getDatabaseReference().child("usuarios");
 

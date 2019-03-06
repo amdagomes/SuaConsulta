@@ -1,7 +1,13 @@
 package com.ifpb.suaconsulta.activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -14,29 +20,44 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.ifpb.suaconsulta.R;
-import com.ifpb.suaconsulta.database.UsuarioDao;
+import com.ifpb.suaconsulta.database.ConfiguracaoFirebase;
+import com.ifpb.suaconsulta.database.UsuarioFirebase;
+import com.ifpb.suaconsulta.helper.PreferenciasDoUsuario;
 import com.ifpb.suaconsulta.model.Usuario;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.ByteArrayOutputStream;
+import java.net.URL;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EditarInformacoes extends AppCompatActivity {
 
     private final String ARQUIVO_PREFERENCIAS = "arquivoPreferencias";
+    private static final int SELECAO_GALERIA = 200;
     private SharedPreferences preferences;
     private EditText editNome, editCpf, editNumSus, editTelefone, editNascimento, editRua, editBairro, editEmail;
+    private TextView editarFoto;
+    private CircleImageView imageEditarPerfil;
     private Spinner spinner;
     private ProgressBar progressBar;
     private Usuario usuario;
 
+    private StorageReference storageReference;
+
     private ArrayAdapter<String> adapter;
-    private List<String> opcoesSpinner;
+    private String[] opcoesSpinner;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -49,15 +70,25 @@ public class EditarInformacoes extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        storageReference = ConfiguracaoFirebase.getStorageReference();
+
         preferences = getSharedPreferences(ARQUIVO_PREFERENCIAS, MODE_PRIVATE);
         usuario = new Usuario();
 
         incializarComponentes();
         setComponentes();
 
-        opcoesSpinner = new ArrayList<>();
-        opcoesSpinner.add("Feminino");
-        opcoesSpinner.add("Masculino");
+        editarFoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                if(intent.resolveActivity(getPackageManager()) != null){
+                    startActivityForResult(intent, SELECAO_GALERIA);
+                }
+            }
+        });
+
+        opcoesSpinner = new String[]{"Feminino", "Masculino"};
 
         //seta valores do spinner
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, opcoesSpinner);
@@ -85,6 +116,63 @@ public class EditarInformacoes extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == RESULT_OK){
+            Bitmap imagem = null;
+            try{
+                //seleção apenas da galeria de fotos
+                switch (requestCode){
+                    case SELECAO_GALERIA:
+                        Uri localImagemSelecionada = data.getData();
+                        imagem = MediaStore.Images.Media.getBitmap(getContentResolver(), localImagemSelecionada);
+                        break;
+                }
+
+                //caso tenha escolhido uma imagem
+                if (imagem!=null){
+                    imageEditarPerfil.setImageBitmap(imagem);
+
+                    //Recupera dados da imagem para o firebase
+                    ByteArrayOutputStream outStream =  new ByteArrayOutputStream();
+                    imagem.compress(Bitmap.CompressFormat.JPEG, 70, outStream);
+                    byte[] dadosImagem = outStream.toByteArray();
+
+                    //Salva imagem no firebase
+                    StorageReference imagemRef = storageReference.child("imagensPerfil").child( preferences.getString("id", "naodefinido")+".jpeg");
+                    UploadTask uploadTask = imagemRef.putBytes(dadosImagem);
+                    uploadTask.addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(EditarInformacoes.this, "Erro ao fazer upload da imagem", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    atualizarFotoUsuario(uri);
+                                }
+                            });
+
+                            Toast.makeText(EditarInformacoes.this, "Sucesso ao fazer upload da imagem", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void atualizarFotoUsuario(Uri url) {
+        PreferenciasDoUsuario.atualizarImagemPerfil(getApplicationContext(), url);
+        usuario.setCaminhoFoto(url.toString());
+    }
+
     private void incializarComponentes() {
         editBairro = findViewById(R.id.editEditarBairro);
         editEmail = findViewById(R.id.editEditarEmail);
@@ -97,6 +185,8 @@ public class EditarInformacoes extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBarEditarInfo);
         spinner = findViewById(R.id.spinnerEditar);
         progressBar.setVisibility(View.GONE);
+        editarFoto = findViewById(R.id.textEditarFoto);
+        imageEditarPerfil = findViewById(R.id.imageEditarPerfil);
     }
 
 
@@ -109,6 +199,16 @@ public class EditarInformacoes extends AppCompatActivity {
         editRua.setText(preferences.getString("rua", "não definido"));
         editTelefone.setText(preferences.getString("telefone", "não definido"));
         editNumSus.setText(preferences.getString("numSus", "não definido"));
+
+        String url = preferences.getString("fotoPerfil", "");
+        if (preferences.contains("fotoPerfil")){
+            if (!url.equals("")){
+                Uri urlFoto = Uri.parse(url);
+                Glide.with(EditarInformacoes.this)
+                        .load(urlFoto)
+                        .into(imageEditarPerfil);
+            }
+        }
 
         if(preferences.getString("sexo", "não definido").equals("Feminino")){
             spinner.setSelection(0);
@@ -149,25 +249,13 @@ public class EditarInformacoes extends AppCompatActivity {
 
         if(preferences.contains("id")){
             usuario.setId(preferences.getString("id", "nao definido"));
-            UsuarioDao.salvar(usuario);
+            UsuarioFirebase.salvar(usuario);
         }else {
             Toast.makeText(this, "Erro ao salvar", Toast.LENGTH_SHORT).show();
         }
 
-        setarPreferencias();
-    }
-
-    private void setarPreferencias() {
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("nome", usuario.getNome());
-        editor.putString("numSus", usuario.getNumSus());
-        editor.putString("telefone", usuario.getTelefone());
-        editor.putString("dataNascimento", usuario.getDataNascimento());
-        editor.putString("rua", usuario.getRua());
-        editor.putString("bairro", usuario.getBairro());
-        editor.putString("sexo", usuario.getSexo());
-        editor.apply();
-
+        PreferenciasDoUsuario.setarPreferencias(getApplicationContext(), usuario);
         progressBar.setVisibility(View.GONE);
     }
+
 }

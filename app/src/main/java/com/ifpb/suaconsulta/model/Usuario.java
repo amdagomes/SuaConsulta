@@ -16,6 +16,7 @@ public class Usuario implements Serializable{
     private String dataNascimento;
     private String rua;
     private String bairro;
+    private String caminhoFoto;
 
     public Usuario() {
     }
@@ -108,6 +109,14 @@ public class Usuario implements Serializable{
         this.sexo = sexo;
     }
 
+    public String getCaminhoFoto() {
+        return caminhoFoto;
+    }
+
+    public void setCaminhoFoto(String caminhoFoto) {
+        this.caminhoFoto = caminhoFoto;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -123,13 +132,14 @@ public class Usuario implements Serializable{
                 Objects.equals(sexo, usuario.sexo) &&
                 Objects.equals(dataNascimento, usuario.dataNascimento) &&
                 Objects.equals(rua, usuario.rua) &&
-                Objects.equals(bairro, usuario.bairro);
+                Objects.equals(bairro, usuario.bairro) &&
+                Objects.equals(caminhoFoto, usuario.caminhoFoto);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, Nome, cpf, numSus, telefone, email, senha, sexo, dataNascimento, rua, bairro);
+        return Objects.hash(id, Nome, cpf, numSus, telefone, email, senha, sexo, dataNascimento, rua, bairro, caminhoFoto);
     }
 
     @Override
@@ -146,6 +156,7 @@ public class Usuario implements Serializable{
                 ", dataNascimento='" + dataNascimento + '\'' +
                 ", rua='" + rua + '\'' +
                 ", bairro='" + bairro + '\'' +
+                ", caminhoFoto='" + caminhoFoto + '\'' +
                 '}';
     }
 }
