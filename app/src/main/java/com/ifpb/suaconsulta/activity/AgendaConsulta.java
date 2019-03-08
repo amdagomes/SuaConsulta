@@ -9,7 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.LinearLayout;
 
 import com.ifpb.suaconsulta.R;
-import com.ifpb.suaconsulta.adapters.AgendarConsultaAdapter;
+import com.ifpb.suaconsulta.activity.adapters.AgendarConsultaAdapter;
 
 public class AgendaConsulta extends AppCompatActivity {
 

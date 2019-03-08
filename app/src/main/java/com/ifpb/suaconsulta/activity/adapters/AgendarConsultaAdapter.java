@@ -1,4 +1,4 @@
-package com.ifpb.suaconsulta.adapters;
+package com.ifpb.suaconsulta.activity.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

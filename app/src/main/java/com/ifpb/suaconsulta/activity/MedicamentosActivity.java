@@ -3,16 +3,26 @@ package com.ifpb.suaconsulta.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 import com.ifpb.suaconsulta.R;
+import com.ifpb.suaconsulta.activity.adapters.AgendarConsultaAdapter;
+import com.ifpb.suaconsulta.activity.adapters.AlarmesAdapter;
+import com.ifpb.suaconsulta.database.AlarmeDAO;
 
 public class MedicamentosActivity extends AppCompatActivity {
+
+    private RecyclerView recycler;
+    private AlarmeDAO alarmeDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,10 +33,22 @@ public class MedicamentosActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_medicamentos);
 
+        alarmeDAO = new AlarmeDAO(getApplicationContext());
+
         Toolbar toolbar = findViewById(R.id.toolbarLembretes);
         toolbar.setTitle("Lembretes de medicamentos");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        RecyclerView.Adapter adapter = new AlarmesAdapter(alarmeDAO.listar());
+
+        recycler = findViewById(R.id.recyclerAlarmes);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recycler.setLayoutManager(layoutManager);
+        recycler.setAdapter(adapter);
+        recycler.setHasFixedSize(true);
+        recycler.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
     }
 
     @Override
@@ -40,7 +62,7 @@ public class MedicamentosActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.itemAdcLembrete:
-                //ação
+                startActivity(new Intent(MedicamentosActivity.this, AdicionarAlarme.class));
                 break;
         }
         return super.onOptionsItemSelected(item);
