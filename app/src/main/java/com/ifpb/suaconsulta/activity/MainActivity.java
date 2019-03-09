@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         usuarioLogado = new Usuario();
         auth = ConfiguracaoFirebase.getFirebaseAuth();
 
+        recuperaPreferences();
+
     }
 
     public void carregaTelaMinhasConsultas(View view) {
