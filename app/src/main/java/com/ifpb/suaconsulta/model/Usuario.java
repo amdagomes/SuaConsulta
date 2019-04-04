@@ -1,6 +1,7 @@
 package com.ifpb.suaconsulta.model;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 public class Usuario implements Serializable{
@@ -17,6 +18,7 @@ public class Usuario implements Serializable{
     private String rua;
     private String bairro;
     private String caminhoFoto;
+    private List<Consulta> consultas;
 
     public Usuario() {
     }
@@ -117,6 +119,14 @@ public class Usuario implements Serializable{
         this.caminhoFoto = caminhoFoto;
     }
 
+    public List<Consulta> getConsultas() {
+        return consultas;
+    }
+
+    public void setConsultas(List<Consulta> consultas) {
+        this.consultas = consultas;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -133,13 +143,14 @@ public class Usuario implements Serializable{
                 Objects.equals(dataNascimento, usuario.dataNascimento) &&
                 Objects.equals(rua, usuario.rua) &&
                 Objects.equals(bairro, usuario.bairro) &&
-                Objects.equals(caminhoFoto, usuario.caminhoFoto);
+                Objects.equals(caminhoFoto, usuario.caminhoFoto) &&
+                Objects.equals(consultas, usuario.consultas);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, Nome, cpf, numSus, telefone, email, senha, sexo, dataNascimento, rua, bairro, caminhoFoto);
+        return Objects.hash(id, Nome, cpf, numSus, telefone, email, senha, sexo, dataNascimento, rua, bairro, caminhoFoto, consultas);
     }
 
     @Override
@@ -157,6 +168,7 @@ public class Usuario implements Serializable{
                 ", rua='" + rua + '\'' +
                 ", bairro='" + bairro + '\'' +
                 ", caminhoFoto='" + caminhoFoto + '\'' +
+                ", consultas=" + consultas +
                 '}';
     }
 }

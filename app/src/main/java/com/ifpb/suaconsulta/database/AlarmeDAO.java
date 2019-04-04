@@ -9,7 +9,6 @@ import android.util.Log;
 import com.ifpb.suaconsulta.model.Alarme;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class AlarmeDAO {

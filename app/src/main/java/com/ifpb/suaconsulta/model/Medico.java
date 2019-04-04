@@ -1,6 +1,9 @@
 package com.ifpb.suaconsulta.model;
 
-class Medico {
+import java.io.Serializable;
+import java.util.Objects;
+
+public class Medico implements Serializable {
     private String id;
     private String nome;
     private int crm;
@@ -57,5 +60,36 @@ class Medico {
 
     public void setEspecialidade(String especialidade) {
         this.especialidade = especialidade;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Medico medico = (Medico) o;
+        return crm == medico.crm &&
+                Objects.equals(id, medico.id) &&
+                Objects.equals(nome, medico.nome) &&
+                Objects.equals(telefone, medico.telefone) &&
+                Objects.equals(email, medico.email) &&
+                Objects.equals(especialidade, medico.especialidade);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, nome, crm, telefone, email, especialidade);
+    }
+
+    @Override
+    public String toString() {
+        return "Medico{" +
+                "id='" + id + '\'' +
+                ", nome='" + nome + '\'' +
+                ", crm=" + crm +
+                ", telefone='" + telefone + '\'' +
+                ", email='" + email + '\'' +
+                ", especialidade='" + especialidade + '\'' +
+                '}';
     }
 }

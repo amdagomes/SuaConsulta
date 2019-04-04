@@ -1,19 +1,38 @@
 package com.ifpb.suaconsulta.activity;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.ifpb.suaconsulta.R;
 import com.ifpb.suaconsulta.activity.adapters.AgendarConsultaAdapter;
+import com.ifpb.suaconsulta.database.ConfiguracaoFirebase;
+import com.ifpb.suaconsulta.model.Consulta;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AgendaConsulta extends AppCompatActivity {
 
     private RecyclerView recycler;
+    private RecyclerView.Adapter adapter;
+    private DatabaseReference databaseReference;
+    private ChildEventListener childEventListener;
+
+    private List<Consulta> consultas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,17 +44,65 @@ public class AgendaConsulta extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        RecyclerView.Adapter adapter = new AgendarConsultaAdapter();
+        databaseReference = ConfiguracaoFirebase.getDatabaseReference().child("consultas");
+        consultas = new ArrayList<>();
 
         recycler = findViewById(R.id.recyclerAgendarConsulta);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recycler.setLayoutManager(layoutManager);
-        recycler.setAdapter(adapter);
         recycler.setHasFixedSize(true);
-        recycler.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
-
+        adapter = new AgendarConsultaAdapter(consultas, getApplicationContext());
+        recycler.setAdapter(adapter);
+//        recycler.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
 
     }
 
+    public void recuperarConsultas(){
+        childEventListener = databaseReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+               for(DataSnapshot data : dataSnapshot.getChildren()){
+                   Consulta consulta = data.getValue(Consulta.class);
+                   consulta.setUid(data.getKey());
+                   consultas.add(consulta);
+                   Log.i("AGENDA_CONSULTA", data.getValue().toString());
+               }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        consultas.clear();
+        recuperarConsultas();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        databaseReference.removeEventListener(childEventListener);
+    }
 }

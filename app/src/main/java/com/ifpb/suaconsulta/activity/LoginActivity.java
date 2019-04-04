@@ -63,15 +63,17 @@ public class LoginActivity extends AppCompatActivity{
         });
     }
 
-    public void verificarUsuarioLogado(){
+    public boolean verificarUsuarioLogado(){
         auth = ConfiguracaoFirebase.getFirebaseAuth();
         if (auth.getCurrentUser() != null){
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
+            return true;
         }
+        return false;
     }
 
-    private void validarLogin(Usuario usuario) {
+    public void validarLogin(Usuario usuario) {
         auth = ConfiguracaoFirebase.getFirebaseAuth();
         auth.signInWithEmailAndPassword(
                 usuario.getEmail(),
