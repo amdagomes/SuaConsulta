@@ -30,7 +30,7 @@ public class AgendaConsulta extends AppCompatActivity {
     private RecyclerView recycler;
     private RecyclerView.Adapter adapter;
     private DatabaseReference databaseReference;
-    private ChildEventListener childEventListener;
+   private ChildEventListener childEventListener;
 
     private List<Consulta> consultas;
 
@@ -59,26 +59,45 @@ public class AgendaConsulta extends AppCompatActivity {
     }
 
     public void recuperarConsultas(){
+
         childEventListener = databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                consultas.clear();
                for(DataSnapshot data : dataSnapshot.getChildren()){
                    Consulta consulta = data.getValue(Consulta.class);
-                   consulta.setUid(data.getKey());
-                   consultas.add(consulta);
-                   Log.i("AGENDA_CONSULTA", data.getValue().toString());
+                   if (consulta.getVagasRestantes() != 0){
+                       consulta.setUid(data.getKey());
+                       consultas.add(consulta);
+                   }
                }
                 adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                consultas.clear();
+                for(DataSnapshot data : dataSnapshot.getChildren()){
+                    Consulta consulta = data.getValue(Consulta.class);
+                    if (consulta.getVagasRestantes() != 0){
+                        consulta.setUid(data.getKey());
+                        consultas.add(consulta);
+                    }
+                }
+                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
+                consultas.clear();
+                for(DataSnapshot data : dataSnapshot.getChildren()){
+                    Consulta consulta = data.getValue(Consulta.class);
+                    if (consulta.getVagasRestantes() != 0){
+                        consulta.setUid(data.getKey());
+                        consultas.add(consulta);
+                    }
+                }
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -96,7 +115,6 @@ public class AgendaConsulta extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        consultas.clear();
         recuperarConsultas();
     }
 

@@ -1,7 +1,9 @@
 package com.ifpb.suaconsulta.model;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class Usuario implements Serializable{
@@ -18,9 +20,10 @@ public class Usuario implements Serializable{
     private String rua;
     private String bairro;
     private String caminhoFoto;
-    private List<Consulta> consultas;
+    private Map<String, Consulta> consultas;
 
     public Usuario() {
+        this.consultas = new HashMap<String, Consulta>();
     }
 
     public String getId() {
@@ -119,11 +122,11 @@ public class Usuario implements Serializable{
         this.caminhoFoto = caminhoFoto;
     }
 
-    public List<Consulta> getConsultas() {
+    public Map<String, Consulta> getConsultas() {
         return consultas;
     }
 
-    public void setConsultas(List<Consulta> consultas) {
+    public void setConsultas(Map<String, Consulta> consultas) {
         this.consultas = consultas;
     }
 

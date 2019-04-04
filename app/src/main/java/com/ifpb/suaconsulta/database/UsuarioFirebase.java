@@ -20,7 +20,8 @@ import java.util.List;
 public class UsuarioFirebase {
 
     private static DatabaseReference usuarioRef = ConfiguracaoFirebase.getDatabaseReference().child("usuarios");
-    private static List<Consulta> consultas = new ArrayList<>();
+    private static FirebaseAuth auth = ConfiguracaoFirebase.getFirebaseAuth();
+    private static final List<Consulta> consultas = new ArrayList<>();
 
     public static void salvar(Usuario usuario){
         usuarioRef.child(usuario.getId()).setValue(usuario);
@@ -31,14 +32,17 @@ public class UsuarioFirebase {
     }
 
     public static List<Consulta> getConsultas(){
-        usuarioRef.child("consultas").getParent().addListenerForSingleValueEvent(new ValueEventListener() {
+        usuarioRef.child(auth.getCurrentUser().getUid()).child("consultas").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                consultas.clear();
                 for (DataSnapshot data : dataSnapshot.getChildren()){
                     Consulta consulta = data.getValue(Consulta.class);
                     consulta.setUid(data.getKey());
                     consultas.add(consulta);
+                    Log.i("AGENDA_MINHACONSULTA", consulta.toString());
                 }
+                Log.i("AGENDA_", "tamanho dentro: "+ consultas.size());
             }
 
             @Override
@@ -46,6 +50,8 @@ public class UsuarioFirebase {
 
             }
         });
+        Log.i("AGENDA_", "tamanho: "+ consultas.size());
         return consultas;
     }
+
 }
