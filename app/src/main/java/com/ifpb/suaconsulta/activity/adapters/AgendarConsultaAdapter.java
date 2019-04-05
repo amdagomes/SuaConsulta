@@ -63,6 +63,7 @@ public class AgendarConsultaAdapter extends RecyclerView.Adapter<AgendarConsulta
                 databaseReference.child("consultas").child(consulta.getUnidadeMedica()).child(consulta.getUid()).setValue(consulta);
 
                 //atualiza consultas do usuário
+                consulta.setConfirmada("false");
                 databaseReference.child("usuarios").child(auth.getCurrentUser().getUid()).child("consultas").child(consulta.getUid()).setValue(consulta);
                 Toast.makeText(context, "Agendamento realizado!", Toast.LENGTH_SHORT).show();
             }

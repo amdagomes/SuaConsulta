@@ -51,6 +51,7 @@ public class PreferenciasDoUsuario {
         editor.putString("bairro", usuarioLogado.getBairro());
         editor.putString("sexo", usuarioLogado.getSexo());
         editor.putString("id", usuarioLogado.getId());
+        editor.putString("fotoPerfil", usuarioLogado.getCaminhoFoto());
 
         //editor.commit();
         editor.apply();

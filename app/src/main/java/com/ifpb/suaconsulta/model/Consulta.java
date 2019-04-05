@@ -5,12 +5,14 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Consulta implements Serializable {
+
     private String uid;
     private String data;
     private int numVagas;
     private int vagasRestantes;
     private String medico;
     private String unidadeMedica;
+    private String confirmada;
 
     public Consulta() {
     }
@@ -63,6 +65,14 @@ public class Consulta implements Serializable {
         this.unidadeMedica = unidadeMedica;
     }
 
+    public String getConfirmada() {
+        return confirmada;
+    }
+
+    public void setConfirmada(String confirmada) {
+        this.confirmada = confirmada;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -73,13 +83,14 @@ public class Consulta implements Serializable {
                 Objects.equals(uid, consulta.uid) &&
                 Objects.equals(data, consulta.data) &&
                 Objects.equals(medico, consulta.medico) &&
-                Objects.equals(unidadeMedica, consulta.unidadeMedica);
+                Objects.equals(unidadeMedica, consulta.unidadeMedica) &&
+                Objects.equals(confirmada, consulta.confirmada);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(uid, data, numVagas, vagasRestantes, medico, unidadeMedica);
+        return Objects.hash(uid, data, numVagas, vagasRestantes, medico, unidadeMedica, confirmada);
     }
 
     @Override
@@ -91,6 +102,7 @@ public class Consulta implements Serializable {
                 ", vagasRestantes=" + vagasRestantes +
                 ", medico='" + medico + '\'' +
                 ", unidadeMedica='" + unidadeMedica + '\'' +
+                ", confirmada='" + confirmada + '\'' +
                 '}';
     }
 }
