@@ -83,26 +83,48 @@
             android:layout_height="wrap_content"
             android:text="Nome do Médico" />
 
-        <Button
-            android:id="@+id/btnConfirmarConsulta"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorGreenDarck"
-            android:padding="10dp"
-            android:text="Confirmar"
-            android:textColor="@android:color/white" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btnCancelarConsulta"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="#c95d63"
-            android:padding="10dp"
-            android:text="Cancelar"
-            android:textColor="@android:color/white"
-            android:visibility="gone" />
+            <Button
+                android:id="@+id/btnConfirmarConsulta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                android:background="@color/colorGreenDarck"
+                android:padding="10dp"
+                android:text="Confirmar"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/btnCancelarConsulta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                android:background="#FF8C42"
+                android:padding="10dp"
+                android:text="Cancelar"
+                android:textColor="@android:color/white"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btnrRemoverConsulta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:background="#c95d63"
+                android:padding="10dp"
+                android:text="REMOVER"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
 
     </LinearLayout>
 </LinearLayout>

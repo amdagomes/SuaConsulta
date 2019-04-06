@@ -70,34 +70,41 @@ public class MinhasConsultasFragment extends Fragment {
         return view;
     }
 
-    public void recuperaConsultas(){
+    public void recuperaConsultas() {
 
         childEventListener = databaseReference.child("consultas").getParent().addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 //                consultas.clear();
-                for(DataSnapshot data : dataSnapshot.getChildren()){
-                        Consulta consulta = data.getValue(Consulta.class);
-                        consultas.add(consulta);
-                        Log.i("MINHAS_CONSULTAS_FRAG", data.getValue().toString());
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    Consulta consulta = data.getValue(Consulta.class);
+                    consultas.add(consulta);
+                    Log.i("MINHAS_CONSULTAS_FRAG", data.getValue().toString());
+                    mAdapter.notifyDataSetChanged();
                 }
-                mAdapter.notifyDataSetChanged();
+
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 //                consultas.clear();
-                for(DataSnapshot data : dataSnapshot.getChildren()){
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
                     Consulta consulta = data.getValue(Consulta.class);
                     consultas.add(consulta);
                     Log.i("MINHAS_CONSULTAS", consulta.toString());
+                    mAdapter.notifyDataSetChanged();
                 }
-                mAdapter.notifyDataSetChanged();
+
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
+                consultas.clear();
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    Consulta consulta = data.getValue(Consulta.class);
+                    consultas.add(consulta);
+                    mAdapter.notifyDataSetChanged();
+                }
             }
 
             @Override

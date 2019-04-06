@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.ifpb.suaconsulta.R;
 import com.ifpb.suaconsulta.activity.adapters.AgendarConsultaAdapter;
 import com.ifpb.suaconsulta.database.ConfiguracaoFirebase;
+import com.ifpb.suaconsulta.database.UsuarioFirebase;
 import com.ifpb.suaconsulta.model.Consulta;
 
 import java.util.ArrayList;
@@ -30,9 +31,10 @@ public class AgendaConsultaActivity extends AppCompatActivity {
     private RecyclerView recycler;
     private RecyclerView.Adapter adapter;
     private DatabaseReference databaseReference;
-   private ChildEventListener childEventListener;
+    private ChildEventListener childEventListener;
 
     private List<Consulta> consultas;
+    private List<Consulta> minhasConsultas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class AgendaConsultaActivity extends AppCompatActivity {
 
         databaseReference = ConfiguracaoFirebase.getDatabaseReference().child("consultas");
         consultas = new ArrayList<>();
+        minhasConsultas = new ArrayList<>();
 
         recycler = findViewById(R.id.recyclerAgendarConsulta);
 
@@ -60,6 +63,8 @@ public class AgendaConsultaActivity extends AppCompatActivity {
 
     public void recuperarConsultas(){
 
+        minhasConsultas = UsuarioFirebase.getConsultas();
+
         childEventListener = databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -67,8 +72,19 @@ public class AgendaConsultaActivity extends AppCompatActivity {
                for(DataSnapshot data : dataSnapshot.getChildren()){
                    Consulta consulta = data.getValue(Consulta.class);
                    if (consulta.getVagasRestantes() != 0){
-                       consulta.setUid(data.getKey());
-                       consultas.add(consulta);
+                       boolean contem = false;
+                       //verifica se o usuario ja fez o agendamento da consulta
+                       for (Consulta c : minhasConsultas){
+                           Log.i("MINHAS_CONSULTAS", "MC: " + c.toString());
+                           if(c.getUid().equals(consulta.getUid())){
+                               contem = true;
+                               break;
+                           }
+                       }
+                       if (!contem){
+                           consulta.setUid(data.getKey());
+                           consultas.add(consulta);
+                       }
                    }
                }
                 adapter.notifyDataSetChanged();
@@ -80,8 +96,19 @@ public class AgendaConsultaActivity extends AppCompatActivity {
                 for(DataSnapshot data : dataSnapshot.getChildren()){
                     Consulta consulta = data.getValue(Consulta.class);
                     if (consulta.getVagasRestantes() != 0){
-                        consulta.setUid(data.getKey());
-                        consultas.add(consulta);
+                        boolean contem = false;
+                        //verifica se o usuario ja fez o agendamento da consulta
+                        for (Consulta c : minhasConsultas){
+                            Log.i("MINHAS_CONSULTAS", "MC: " + c.toString());
+                            if(c.getUid().equals(consulta.getUid())){
+                                contem = true;
+                                break;
+                            }
+                        }
+                        if (!contem){
+                            consulta.setUid(data.getKey());
+                            consultas.add(consulta);
+                        }
                     }
                 }
                 adapter.notifyDataSetChanged();
@@ -93,8 +120,19 @@ public class AgendaConsultaActivity extends AppCompatActivity {
                 for(DataSnapshot data : dataSnapshot.getChildren()){
                     Consulta consulta = data.getValue(Consulta.class);
                     if (consulta.getVagasRestantes() != 0){
-                        consulta.setUid(data.getKey());
-                        consultas.add(consulta);
+                        boolean contem = false;
+                        //verifica se o usuario ja fez o agendamento da consulta
+                        for (Consulta c : minhasConsultas){
+                            Log.i("MINHAS_CONSULTAS", "MC: " + c.toString());
+                            if(c.getUid().equals(consulta.getUid())){
+                                contem = true;
+                                break;
+                            }
+                        }
+                        if (!contem){
+                            consulta.setUid(data.getKey());
+                            consultas.add(consulta);
+                        }
                     }
                 }
                 adapter.notifyDataSetChanged();

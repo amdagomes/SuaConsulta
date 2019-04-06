@@ -124,8 +124,21 @@ public class MinhasConsultasAdapter extends RecyclerView.Adapter<MinhasConsultas
 
                 databaseReference.child("consultasConfirmadas").child(consulta.getUnidadeMedica())
                         .child(consulta.getUid()).child("usuarios").child(auth.getCurrentUser().getUid()).removeValue();
-                
+
                 Toast.makeText(context, "Confirmação cancelada", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        myViewHolder.btnRemover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                consulta.setConfirmada("false");
+                databaseReference.child("usuarios").child(auth.getCurrentUser().getUid()).child("consultas").child(consulta.getUid()).removeValue();
+
+                databaseReference.child("consultasConfirmadas").child(consulta.getUnidadeMedica())
+                        .child(consulta.getUid()).child("usuarios").child(auth.getCurrentUser().getUid()).removeValue();
+
+                Toast.makeText(context, "Consulta removida", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -138,7 +151,7 @@ public class MinhasConsultasAdapter extends RecyclerView.Adapter<MinhasConsultas
     public class MyViewHolder extends  RecyclerView.ViewHolder{
 
         TextView titulo, local, data, medico;
-        Button btnConfirmar, btnCancelar;
+        Button btnConfirmar, btnCancelar, btnRemover;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -148,6 +161,7 @@ public class MinhasConsultasAdapter extends RecyclerView.Adapter<MinhasConsultas
             medico = itemView.findViewById(R.id.textMConsultaNomeMedico);
             btnConfirmar = itemView.findViewById(R.id.btnConfirmarConsulta);
             btnCancelar = itemView.findViewById(R.id.btnCancelarConsulta);
+            btnRemover = itemView.findViewById(R.id.btnrRemoverConsulta);
         }
     }
 }

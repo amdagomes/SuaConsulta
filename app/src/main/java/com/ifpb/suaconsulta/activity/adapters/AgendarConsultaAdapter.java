@@ -50,7 +50,7 @@ public class AgendarConsultaAdapter extends RecyclerView.Adapter<AgendarConsulta
     }
 
     @Override
-    public void onBindViewHolder(final MyViewHolder myViewHolder, int itemView) {
+    public void onBindViewHolder(final MyViewHolder myViewHolder, final int itemView) {
         final Consulta consulta = consultas.get(itemView);
         Log.i("AGENDA_CONSULTA_ADAPTER", consulta.toString());
 
@@ -59,7 +59,7 @@ public class AgendarConsultaAdapter extends RecyclerView.Adapter<AgendarConsulta
             @Override
             public void onClick(View v) {
                 //atualiza consultas
-                consulta.setVagasRestantes(consulta.getVagasRestantes()-1);
+                consulta.setVagasRestantes(consulta.getVagasRestantes() - 1);
                 databaseReference.child("consultas").child(consulta.getUnidadeMedica()).child(consulta.getUid()).setValue(consulta);
 
                 //atualiza consultas do usuário
@@ -69,40 +69,27 @@ public class AgendarConsultaAdapter extends RecyclerView.Adapter<AgendarConsulta
             }
         });
 
-        //verifica se o usuário já realizou agendamento nessa consulta
-        boolean contem = false;
-        for (Consulta c : minhasConsultas){
-            Log.i("AGENDA_", "CONTEN: "+ contem);
-            if (c.getUid().equals(consulta.getUid())){
-                contem = true;
-                break;
-            }
-        }
-        if (contem == true) {
-            myViewHolder.layout.setVisibility(View.GONE);
-        } else{
-            //recupera os locais (unidades) da consulta
-                databaseReference.child("unidades").child(consulta.getUnidadeMedica()).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        UnidadeMedica unidadeMedica = dataSnapshot.getValue(UnidadeMedica.class);
-                        myViewHolder.local.setText(unidadeMedica.getNome());
-                        for (Medico m : unidadeMedica.getMedicos().values()) {
-                            if (m.getCrm() == Integer.parseInt(consulta.getMedico())) {
-                                myViewHolder.nomeMedico.setText(m.getNome());
-                            }
-                        }
+        //recupera os locais (unidades) da consulta
+        databaseReference.child("unidades").child(consulta.getUnidadeMedica()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                UnidadeMedica unidadeMedica = dataSnapshot.getValue(UnidadeMedica.class);
+                myViewHolder.local.setText(unidadeMedica.getNome());
+                for (Medico m : unidadeMedica.getMedicos().values()) {
+                    if (m.getCrm() == Integer.parseInt(consulta.getMedico())) {
+                        myViewHolder.nomeMedico.setText(m.getNome());
                     }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-
-                myViewHolder.dataConsulta.setText(consulta.getData());
-                myViewHolder.numVagas.setText(String.valueOf(consulta.getVagasRestantes()));
+                }
             }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        myViewHolder.dataConsulta.setText(consulta.getData());
+        myViewHolder.numVagas.setText(String.valueOf(consulta.getVagasRestantes()));
 
     }
 
