@@ -1,8 +1,6 @@
 package com.ifpb.suaconsulta.service;
 
-import android.app.AlarmManager;
 import android.app.IntentService;
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -10,11 +8,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.ifpb.suaconsulta.R;
-import com.ifpb.suaconsulta.activity.AdicionarAlarme;
+import com.ifpb.suaconsulta.activity.AdicionarAlarmeActivity;
 
 public class AlarmeService extends IntentService {
 
@@ -33,7 +30,7 @@ public class AlarmeService extends IntentService {
                 .getSystemService(Context.NOTIFICATION_SERVICE);
 
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, AdicionarAlarme.class), 0);
+                new Intent(this, AdicionarAlarmeActivity.class), 0);
 
         NotificationCompat.Builder alamNotificationBuilder = new NotificationCompat.Builder(
                 this, CHANNEL_ID).setContentTitle("Alarm").setSmallIcon(R.drawable.ic_notifications_black_24dp)

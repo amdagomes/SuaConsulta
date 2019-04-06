@@ -53,7 +53,7 @@
             android:name=".activity.MedicamentosActivity"
             android:parentActivityName=".activity.MainActivity" />
         <activity
-            android:name=".activity.AgendaConsulta"
+            android:name=".activity.AgendaConsultaActivity"
             android:parentActivityName=".activity.MainActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -68,12 +68,12 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".activity.EditarInformacoes"
+            android:name=".activity.EditarInformacoesActivity"
             android:label="@string/title_activity_editar_informacoes"
             android:parentActivityName=".activity.SettingsContaActivity"
             android:theme="@style/AppTheme" />
 
-        <activity android:name=".activity.AdicionarAlarme"
+        <activity android:name=".activity.AdicionarAlarmeActivity"
             android:parentActivityName=".activity.MedicamentosActivity"></activity>
 
         <service android:name=".service.AlarmeService" android:enabled="true"/>

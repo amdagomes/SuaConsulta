@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void carregaTelaAgendarConsulta(View view){
-        Intent intent = new Intent(MainActivity.this, AgendaConsulta.class);
+        Intent intent = new Intent(MainActivity.this, AgendaConsultaActivity.class);
         startActivity(intent);
     }
 

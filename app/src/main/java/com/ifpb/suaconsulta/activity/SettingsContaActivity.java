@@ -80,7 +80,7 @@ public class SettingsContaActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.itemEditar:
-                startActivity(new Intent(SettingsContaActivity.this, EditarInformacoes.class));
+                startActivity(new Intent(SettingsContaActivity.this, EditarInformacoesActivity.class));
                 break;
             case R.id.itemAlterarSenha:
                 //ação

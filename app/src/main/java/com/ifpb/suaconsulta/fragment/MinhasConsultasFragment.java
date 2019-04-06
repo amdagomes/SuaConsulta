@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,8 +36,9 @@ public class MinhasConsultasFragment extends Fragment {
     private FirebaseAuth auth;
     private DatabaseReference databaseReference;
 
-    private RecyclerView recycler;
-    private MinhasConsultasAdapter adapter;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private MinhasConsultasAdapter mAdapter;
     private List<Consulta> consultas;
 
     private ChildEventListener childEventListener;
@@ -48,51 +51,48 @@ public class MinhasConsultasFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_minhas_consultas, container, false);
-
-        recycler = rootView.findViewById(R.id.recyclerMinhasConusltas);
+        View view = inflater.inflate(R.layout.fragment_minhas_consultas, container, false);
 
         auth = ConfiguracaoFirebase.getFirebaseAuth();
         databaseReference = ConfiguracaoFirebase.getDatabaseReference().child("usuarios").child(auth.getCurrentUser().getUid());
 
         consultas = new ArrayList<>();
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        recycler.setLayoutManager(layoutManager);
-        recycler.setHasFixedSize(true);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerMinhasConsultas);
+        mLayoutManager = new LinearLayoutManager(this.getActivity());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this.getActivity(), LinearLayout.VERTICAL));
 
-        adapter = new MinhasConsultasAdapter(consultas);
-        recycler.setAdapter(adapter);
+        mAdapter = new MinhasConsultasAdapter(consultas, this.getActivity());
+        mRecyclerView.setAdapter(mAdapter);
 
-        return rootView;
+        return view;
     }
 
     public void recuperaConsultas(){
-        childEventListener = databaseReference.child("consultas").addChildEventListener(new ChildEventListener() {
+
+        childEventListener = databaseReference.child("consultas").getParent().addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                consultas.clear();
+//                consultas.clear();
                 for(DataSnapshot data : dataSnapshot.getChildren()){
-                    try{
                         Consulta consulta = data.getValue(Consulta.class);
                         consultas.add(consulta);
-                        Log.i("MINHAS_CONSULTAS", consulta.toString());
-                    } catch (Exception ex){
-                        ex.printStackTrace();
-                    }
+                        Log.i("MINHAS_CONSULTAS_FRAG", data.getValue().toString());
                 }
-                adapter.notifyDataSetChanged();
+                mAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                consultas.clear();
+//                consultas.clear();
                 for(DataSnapshot data : dataSnapshot.getChildren()){
                     Consulta consulta = data.getValue(Consulta.class);
                     consultas.add(consulta);
                     Log.i("MINHAS_CONSULTAS", consulta.toString());
                 }
-                adapter.notifyDataSetChanged();
+                mAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -115,6 +115,7 @@ public class MinhasConsultasFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        consultas.clear();
         recuperaConsultas();
     }
 

@@ -9,13 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.ifpb.suaconsulta.R;
-import com.ifpb.suaconsulta.activity.adapters.AgendarConsultaAdapter;
 import com.ifpb.suaconsulta.activity.adapters.AlarmesAdapter;
 import com.ifpb.suaconsulta.database.AlarmeDAO;
 
@@ -62,7 +60,7 @@ public class MedicamentosActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.itemAdcLembrete:
-                startActivity(new Intent(MedicamentosActivity.this, AdicionarAlarme.class));
+                startActivity(new Intent(MedicamentosActivity.this, AdicionarAlarmeActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);

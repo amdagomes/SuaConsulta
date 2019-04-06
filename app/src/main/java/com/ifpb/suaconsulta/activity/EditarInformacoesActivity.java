@@ -41,13 +41,10 @@ import com.ifpb.suaconsulta.helper.PreferenciasDoUsuario;
 import com.ifpb.suaconsulta.model.Usuario;
 
 import java.io.ByteArrayOutputStream;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class EditarInformacoes extends AppCompatActivity {
+public class EditarInformacoesActivity extends AppCompatActivity {
 
     private final String ARQUIVO_PREFERENCIAS = "arquivoPreferencias";
     FirebaseAuth auth;
@@ -157,7 +154,7 @@ public class EditarInformacoes extends AppCompatActivity {
                     uploadTask.addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(EditarInformacoes.this, "Erro ao fazer upload da imagem", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditarInformacoesActivity.this, "Erro ao fazer upload da imagem", Toast.LENGTH_SHORT).show();
                         }
                     }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -169,7 +166,7 @@ public class EditarInformacoes extends AppCompatActivity {
                                 }
                             });
 
-                            Toast.makeText(EditarInformacoes.this, "Sucesso ao fazer upload da imagem", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditarInformacoesActivity.this, "Sucesso ao fazer upload da imagem", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -215,7 +212,7 @@ public class EditarInformacoes extends AppCompatActivity {
         if (preferences.contains("fotoPerfil")){
             if (!url.equals("")){
                 Uri urlFoto = Uri.parse(url);
-                Glide.with(EditarInformacoes.this)
+                Glide.with(EditarInformacoesActivity.this)
                         .load(urlFoto)
                         .into(imageEditarPerfil);
             }

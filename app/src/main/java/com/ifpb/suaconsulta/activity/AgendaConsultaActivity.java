@@ -25,7 +25,7 @@ import com.ifpb.suaconsulta.model.Consulta;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AgendaConsulta extends AppCompatActivity {
+public class AgendaConsultaActivity extends AppCompatActivity {
 
     private RecyclerView recycler;
     private RecyclerView.Adapter adapter;

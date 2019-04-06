@@ -7,7 +7,6 @@ import android.app.TimePickerDialog;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Build;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,12 +23,11 @@ import com.ifpb.suaconsulta.R;
 import com.ifpb.suaconsulta.database.AlarmeDAO;
 import com.ifpb.suaconsulta.reciever.AlarmeReciever;
 import com.ifpb.suaconsulta.model.Alarme;
-import com.ifpb.suaconsulta.service.AlarmeService;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class AdicionarAlarme extends AppCompatActivity {
+public class AdicionarAlarmeActivity extends AppCompatActivity {
 
     private Alarme alarme;
     private AlarmeDAO alarmeDAO;
@@ -75,7 +73,7 @@ public class AdicionarAlarme extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (medicamento.getText().toString().isEmpty() | duracaoDias.getText().toString().isEmpty() | intervaloHoras.getText().toString().isEmpty()){
-                    Toast.makeText(AdicionarAlarme.this, "Preencha os campos obrigatorios", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdicionarAlarmeActivity.this, "Preencha os campos obrigatorios", Toast.LENGTH_SHORT).show();
                 } else{
                     alarme = new Alarme();
                     alarme.setMedicamento(medicamento.getText().toString());
@@ -92,7 +90,7 @@ public class AdicionarAlarme extends AppCompatActivity {
     }
 
     private void ativarAlarme() {
-        Intent intent = new Intent(AdicionarAlarme.this, AlarmeReciever.class);
+        Intent intent = new Intent(AdicionarAlarmeActivity.this, AlarmeReciever.class);
         intent.setAction("com.ifpb.suaconsulta");
         pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
