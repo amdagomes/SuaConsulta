@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -50,7 +52,7 @@ public class MinhasConsultasAdapter extends RecyclerView.Adapter<MinhasConsultas
     }
 
     @Override
-    public void onBindViewHolder(final MyViewHolder myViewHolder, int i) {
+    public void onBindViewHolder(final MyViewHolder myViewHolder, final int i) {
         final Consulta consulta = consultas.get(i);
         Log.i("ADAPTER_CONSULTAS", "Consulta" + consulta.toString());
         if (consulta.getConfirmada().equals("true")){
@@ -88,31 +90,44 @@ public class MinhasConsultasAdapter extends RecyclerView.Adapter<MinhasConsultas
             public void onClick(View v) {
                 consulta.setConfirmada("true");
                 Log.i("ADAPTER_CONSULTAS", "Confirmar: " + consulta.getUid());
-                databaseReference.child("usuarios").child(auth.getCurrentUser().getUid()).child("consultas").child(consulta.getUid()).setValue(consulta);
-
-                databaseReference.child("usuarios").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                databaseReference.child("usuarios").child(auth.getCurrentUser().getUid()).child("consultas").child(consulta.getUid()).setValue(consulta).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        Usuario usuario = dataSnapshot.getValue(Usuario.class);
-                        infoUser.setNome(usuario.getNome());
-                        infoUser.setSexo(usuario.getSexo());
-                        infoUser.setNumSus(usuario.getNumSus());
-                        infoUser.setDataNascimento(usuario.getDataNascimento());
-                        infoUser.setTelefone(usuario.getTelefone());
-                        infoUser.setId(usuario.getId());
-                        Log.i("ADAPTER_CONSULTAS", "Usuario DENTRO: " + infoUser.toString());
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            databaseReference.child("usuarios").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    Usuario usuario = dataSnapshot.getValue(Usuario.class);
+                                    infoUser.setNome(usuario.getNome());
+                                    infoUser.setSexo(usuario.getSexo());
+                                    infoUser.setNumSus(usuario.getNumSus());
+                                    infoUser.setDataNascimento(usuario.getDataNascimento());
+                                    infoUser.setTelefone(usuario.getTelefone());
+                                    infoUser.setId(usuario.getId());
+                                    Log.i("ADAPTER_CONSULTAS", "Usuario DENTRO: " + infoUser.toString());
 
-                        databaseReference.child("consultasConfirmadas").child(consulta.getUnidadeMedica())
-                                .child(consulta.getUid()).child("usuarios").child(auth.getCurrentUser().getUid()).setValue(infoUser);
-                    }
+                                    databaseReference.child("consultasConfirmadas").child(consulta.getUnidadeMedica())
+                                            .child(consulta.getUid()).child("usuarios").child(auth.getCurrentUser().getUid()).setValue(infoUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if(task.isSuccessful()){
+                                                Toast.makeText(context, "Consulta confirmada", Toast.LENGTH_SHORT).show();
+                                                notifyItemChanged(i);
+                                            }
+                                        }
+                                    });
+                                }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
 
+                                }
+                            });
+                        } else{
+                            Toast.makeText(context, "Falha ao confirmar consulta", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
-
-                Toast.makeText(context, "Consulta confirmada", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -120,12 +135,23 @@ public class MinhasConsultasAdapter extends RecyclerView.Adapter<MinhasConsultas
             @Override
             public void onClick(View v) {
                 consulta.setConfirmada("false");
-                databaseReference.child("usuarios").child(auth.getCurrentUser().getUid()).child("consultas").child(consulta.getUid()).setValue(consulta);
-
-                databaseReference.child("consultasConfirmadas").child(consulta.getUnidadeMedica())
-                        .child(consulta.getUid()).child("usuarios").child(auth.getCurrentUser().getUid()).removeValue();
-
-                Toast.makeText(context, "Confirmação cancelada", Toast.LENGTH_SHORT).show();
+                databaseReference.child("usuarios").child(auth.getCurrentUser().getUid()).child("consultas").child(consulta.getUid()).setValue(consulta).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            databaseReference.child("consultasConfirmadas").child(consulta.getUnidadeMedica())
+                                    .child(consulta.getUid()).child("usuarios").child(auth.getCurrentUser().getUid()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Toast.makeText(context, "Confirmação de consulta cancelada", Toast.LENGTH_SHORT).show();
+                                    notifyItemChanged(i);
+                                }
+                            });
+                        } else {
+                            Toast.makeText(context, "Falha ao cancelar confirmação de consulta", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
         });
 
@@ -133,12 +159,24 @@ public class MinhasConsultasAdapter extends RecyclerView.Adapter<MinhasConsultas
             @Override
             public void onClick(View v) {
                 consulta.setConfirmada("false");
-                databaseReference.child("usuarios").child(auth.getCurrentUser().getUid()).child("consultas").child(consulta.getUid()).removeValue();
-
-                databaseReference.child("consultasConfirmadas").child(consulta.getUnidadeMedica())
-                        .child(consulta.getUid()).child("usuarios").child(auth.getCurrentUser().getUid()).removeValue();
-
-                Toast.makeText(context, "Consulta removida", Toast.LENGTH_SHORT).show();
+                databaseReference.child("usuarios").child(auth.getCurrentUser().getUid()).child("consultas").child(consulta.getUid()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            databaseReference.child("consultasConfirmadas").child(consulta.getUnidadeMedica())
+                                    .child(consulta.getUid()).child("usuarios").child(auth.getCurrentUser().getUid()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()){
+                                        Toast.makeText(context, "Consulta removida com sucesso", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                        } else {
+                            Toast.makeText(context, "Falha ao remover consutla", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
         });
     }
