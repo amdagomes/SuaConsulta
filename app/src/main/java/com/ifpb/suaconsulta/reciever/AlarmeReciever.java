@@ -13,10 +13,8 @@ public class AlarmeReciever extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d("ALARME", "to no reciever");
         Intent intent1 = new Intent(context, AlarmeService.class);
         context.startService(intent1);
-        //Toast.makeText(context, "to no reciever", Toast.LENGTH_SHORT).show();
     }
 
 }

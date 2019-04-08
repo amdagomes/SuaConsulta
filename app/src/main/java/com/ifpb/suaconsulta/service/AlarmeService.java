@@ -12,6 +12,7 @@ import android.util.Log;
 
 import com.ifpb.suaconsulta.R;
 import com.ifpb.suaconsulta.activity.AdicionarAlarmeActivity;
+import com.ifpb.suaconsulta.activity.MedicamentosActivity;
 
 public class AlarmeService extends IntentService {
 
@@ -30,11 +31,11 @@ public class AlarmeService extends IntentService {
                 .getSystemService(Context.NOTIFICATION_SERVICE);
 
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, AdicionarAlarmeActivity.class), 0);
+                new Intent(this, MedicamentosActivity.class), 0);
 
         NotificationCompat.Builder alamNotificationBuilder = new NotificationCompat.Builder(
                 this, CHANNEL_ID).setContentTitle("Alarm").setSmallIcon(R.drawable.ic_notifications_black_24dp)
-                .setStyle(new NotificationCompat.BigTextStyle().bigText("testando alarme"))
+                .setStyle(new NotificationCompat.BigTextStyle().bigText("Hora do remedio"))
                 .setContentText("testando alarme");
 
         alamNotificationBuilder.setContentIntent(contentIntent);

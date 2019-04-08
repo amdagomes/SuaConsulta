@@ -31,9 +31,9 @@ public class AlarmesAdapter extends RecyclerView.Adapter<AlarmesAdapter.MyViewHo
     public void onBindViewHolder(MyViewHolder myViewHolder, int i) {
         Alarme alarme = alarmes.get(i);
         myViewHolder.medicamento.setText(alarme.getMedicamento());
-        myViewHolder.dosagem.setText(alarme.getDosagem());
-        myViewHolder.duracaoDias.setText(String.valueOf(alarme.getDuracaoDias()));
-        myViewHolder.duracaoHoras.setText(String.valueOf(alarme.getIntervaloHoras()));
+        myViewHolder.dosagem.setText("Dosagem: " + alarme.getDosagem());
+        myViewHolder.duracaoDias.setText(String.valueOf(alarme.getDuracaoDias()) + " dias");
+        myViewHolder.duracaoHoras.setText(String.valueOf(alarme.getIntervaloHoras()) + " horas");
     }
 
     @Override

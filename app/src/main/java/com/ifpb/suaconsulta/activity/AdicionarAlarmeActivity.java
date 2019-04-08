@@ -84,6 +84,7 @@ public class AdicionarAlarmeActivity extends AppCompatActivity {
 
                     alarmeDAO.adiciona(alarme);
                     ativarAlarme();
+                    finish();
                 }
             }
         });
