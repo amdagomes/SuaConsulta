@@ -66,7 +66,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_edit_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_photo_camera_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -76,12 +76,10 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="bfbfbf" />
-                            <entry key="height" value="16" />
-                            <entry key="outputName" value="ic_edit_16dp" />
+                            <entry key="color" value="4858bf" />
+                            <entry key="outputName" value="ic_photo_camera_black_24dp" />
                             <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="C:\Users\Amand" />
-                            <entry key="width" value="16" />
                           </map>
                         </option>
                       </PersistentState>

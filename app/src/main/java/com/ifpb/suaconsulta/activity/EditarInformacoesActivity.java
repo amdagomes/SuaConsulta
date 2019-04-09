@@ -1,13 +1,17 @@
 package com.ifpb.suaconsulta.activity;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -39,6 +43,7 @@ import com.ifpb.suaconsulta.database.ConfiguracaoFirebase;
 import com.ifpb.suaconsulta.database.UsuarioFirebase;
 import com.ifpb.suaconsulta.helper.PreferenciasDoUsuario;
 import com.ifpb.suaconsulta.model.Usuario;
+import com.ifpb.suaconsulta.helper.Permissao;
 
 import java.io.ByteArrayOutputStream;
 
@@ -46,13 +51,19 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EditarInformacoesActivity extends AppCompatActivity {
 
+    private String[] permissoesNecessarias = new String[]{
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA
+    };
+
     private final String ARQUIVO_PREFERENCIAS = "arquivoPreferencias";
-    FirebaseAuth auth;
+    private FirebaseAuth auth;
 
     private static final int SELECAO_GALERIA = 200;
+    private static final int SELECAO_CAMERA = 300;
     private SharedPreferences preferences;
     private EditText editNome, editCpf, editNumSus, editTelefone, editNascimento, editRua, editBairro, editEmail;
-    private TextView editarFoto;
+    private TextView editarFoto, editarFotoCamera;
     private CircleImageView imageEditarPerfil;
     private Spinner spinner;
     private ProgressBar progressBar;
@@ -71,6 +82,9 @@ public class EditarInformacoesActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_editar_informacoes);
+
+        //valida
+        Permissao.validarPermissoes(permissoesNecessarias, this, 1);
 
         Toolbar toolbar = findViewById(R.id.toolbarEditarInfo);
         toolbar.setTitle("Editar informações");
@@ -92,6 +106,16 @@ public class EditarInformacoesActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 if(intent.resolveActivity(getPackageManager()) != null){
                     startActivityForResult(intent, SELECAO_GALERIA);
+                }
+            }
+        });
+
+        editarFotoCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if ( intent.resolveActivity(getPackageManager()) != null ){
+                    startActivityForResult(intent, SELECAO_CAMERA );
                 }
             }
         });
@@ -125,6 +149,36 @@ public class EditarInformacoesActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        for ( int permissaoResultado : grantResults ){
+            if ( permissaoResultado == PackageManager.PERMISSION_DENIED ){
+                alertaValidacaoPermissao();
+            }
+        }
+
+    }
+
+    private void alertaValidacaoPermissao(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder( this );
+        builder.setTitle("Permissões Negadas");
+        builder.setMessage("Para utilizar o app é necessário aceitar as permissões");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -136,6 +190,9 @@ public class EditarInformacoesActivity extends AppCompatActivity {
                     case SELECAO_GALERIA:
                         Uri localImagemSelecionada = data.getData();
                         imagem = MediaStore.Images.Media.getBitmap(getContentResolver(), localImagemSelecionada);
+                        break;
+                    case SELECAO_CAMERA:
+                        imagem = (Bitmap) data.getExtras().get("data");
                         break;
                 }
 
@@ -194,6 +251,7 @@ public class EditarInformacoesActivity extends AppCompatActivity {
         spinner = findViewById(R.id.spinnerEditar);
         progressBar.setVisibility(View.GONE);
         editarFoto = findViewById(R.id.textEditarFoto);
+        editarFotoCamera = findViewById(R.id.textEditarCamera);
         imageEditarPerfil = findViewById(R.id.imageEditarPerfil);
     }
 
