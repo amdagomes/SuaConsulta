@@ -82,60 +82,19 @@
         app:layout_constraintStart_toStartOf="@+id/imageCartao"
         app:layout_constraintTop_toBottomOf="@+id/textHomeNome" />
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="2dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="180dp"
-        android:layout_marginEnd="8dp"
-        android:background="@android:color/darker_gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView2" />
-
-    <View
-        android:id="@+id/divider5"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@android:color/darker_gray"
-        app:layout_constraintBottom_toTopOf="@+id/imageView4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/divider"
-        app:layout_constraintVertical_bias="0.462" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.59" />
-
     <LinearLayout
         android:id="@+id/layoutConsultas"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@drawable/retangulo_borda"
         android:clickable="true"
         android:gravity="center"
         android:onClick="carregaTelaMinhasConsultas"
         android:orientation="vertical"
         android:padding="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageCartao">
 
@@ -164,58 +123,20 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/layoutUnidades"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:clickable="true"
-        android:gravity="center"
-        android:onClick="carregaProcurarLocal"
-        android:orientation="vertical"
-        android:padding="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/imageCartao">
-
-        <TextView
-            android:id="@+id/tvSaude"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:drawableTop="@drawable/icons8_encontre_clinica"
-            android:onClick="carregaProcurarLocal"
-            android:scrollbarAlwaysDrawHorizontalTrack="false"
-            android:text="@string/localSaude"
-            android:textAlignment="center"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tvDescSaude"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:onClick="carregaProcurarLocal"
-            android:text="@string/descLocalSaude"
-            android:textAlignment="center"
-            android:textSize="12sp" />
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/layoutMedicamentos"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@drawable/retangulo_borda"
         android:clickable="true"
         android:divider="@android:color/darker_gray"
         android:gravity="center"
         android:onClick="carregaLembretes"
         android:orientation="vertical"
         android:padding="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnHomeAgendarConsulta"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2">
+        app:layout_constraintTop_toTopOf="@+id/guideline">
 
         <TextView
             android:id="@+id/tvMedicamento"
@@ -245,17 +166,17 @@
         android:id="@+id/laoutSettings"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:background="@drawable/retangulo_borda"
         android:clickable="true"
         android:gravity="center"
         android:onClick="carregaSettingsConta"
         android:orientation="vertical"
         android:padding="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnHomeAgendarConsulta"
+        app:layout_constraintBottom_toTopOf="@+id/imageView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="@+id/guideline2">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutMedicamentos">
 
         <TextView
             android:id="@+id/tvConta"
@@ -282,23 +203,20 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btnHomeAgendarConsulta"
-        android:layout_width="85dp"
-        android:layout_height="78dp"
+        android:layout_width="64dp"
+        android:layout_height="58dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="24dp"
         android:clickable="true"
         android:focusable="true"
         android:onClick="carregaTelaAgendarConsulta"
         app:backgroundTint="@color/colorGreenDarck"
-        app:fabCustomSize="78dp"
+        app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.972"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2"
-        app:layout_constraintVertical_bias="1.0"
-        app:maxImageSize="40dp"
         app:srcCompat="@drawable/icons8_plus_math_30" />
 
     <ImageView
@@ -309,5 +227,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="?attr/colorButtonNormal" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.52" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.72" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.28" />
 
 </android.support.constraint.ConstraintLayout>

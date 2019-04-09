@@ -82,9 +82,9 @@ public class SettingsContaActivity extends AppCompatActivity {
             case R.id.itemEditar:
                 startActivity(new Intent(SettingsContaActivity.this, EditarInformacoesActivity.class));
                 break;
-            case R.id.itemAlterarSenha:
-                //ação
-                break;
+//            case R.id.itemAlterarSenha:
+//                //ação
+//                break;
             case R.id.itemSair:
                 logout();
                 break;

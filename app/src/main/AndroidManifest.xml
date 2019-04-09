@@ -51,9 +51,6 @@
             android:name=".activity.SettingsContaActivity"
             android:parentActivityName=".activity.MainActivity" />
         <activity
-            android:name=".activity.LocalSaudeActivity"
-            android:parentActivityName=".activity.MainActivity" />
-        <activity
             android:name=".activity.MedicamentosActivity"
             android:parentActivityName=".activity.MainActivity" />
         <activity

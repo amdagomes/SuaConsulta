@@ -60,11 +60,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void carregaProcurarLocal(View view) {
-        Intent intent = new Intent(MainActivity.this, LocalSaudeActivity.class);
-        startActivity(intent);
-    }
-
     public void carregaLembretes(View view) {
         Intent intent = new Intent(MainActivity.this, MedicamentosActivity.class);
         startActivity(intent);

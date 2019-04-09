@@ -33,7 +33,7 @@ public class MinhasConsultasActivity extends AppCompatActivity {
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getSupportFragmentManager(), FragmentPagerItems.with(this)
                 .add("Agendadas", MinhasConsultasFragment.class)
-                .add("Lista de espera", ListaEsperaFragment.class)
+//                .add("Lista de espera", ListaEsperaFragment.class)
                 .create());
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
